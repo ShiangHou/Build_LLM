@@ -246,3 +246,8 @@ Argmax 提取 (Candidate Selection)：在 $D_{pair}$ 中寻找频次最大化的
 ### 产出
 
 Output: 算法产出物 (Artifacts)当迭代 $K$ 次后，循环终止。BPE 训练正式结束，输出两个核心产物：vocab (Dict[int, bytes])：一个从整数 Token ID 映射到物理字节序列的词典。大小严格等于 $V_{target}$。merges (List[Tuple[bytes, bytes]])：一个严格按时间先后顺序排列的合并规则列表，长度等于 $K$。
+
+
+## 作业
+
+作业要求就是按照上面这些去写一个训练bpe的
