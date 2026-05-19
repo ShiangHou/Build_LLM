@@ -14,7 +14,7 @@ import regex
 def train_bpe(
     input_path : str,
     vocab_size :int,
-    special_token : list[str]
+    special_tokens : list[str]
     )->tuple(dict[int,bytes],list[tuple[bytes,bytes]]):
     '''
     在这里复述一下bpe的整体的思路
@@ -34,7 +34,7 @@ def train_bpe(
     #最后是输出了两个，一个vocab，即字符映射，这里就是0-255的字节
     # 1. 基础词表：包含 256 个单字节 (0 ~ 255)
     # 字典的键是 ID (int)，值是对应的单字节 (bytes)
-    vocab : dict[int,bytes] = {i : bytes([0]) for i in range(256)}
+    vocab : dict[int,bytes] = {i : bytes([i]) for i in range(256)}
     '''
     知识点，这里的bytes是一种数据类型，比如说，bytes[65] 就是所谓的 A，
     之前我们学到过，一共是256个，每一个数字都对应着一个字符串，这里就是直接用bytes这个来去把0-255的数字直接转为了对应的字符串
@@ -44,15 +44,20 @@ def train_bpe(
     # 2. 注册特殊 Token：分配从 256 开始的 ID
     #这里就是把输入中的special_token直接转化为newtoken，然后给上新的id名称就是
 
+    #这里就是一个简单的for循环，
     new_token_id = 256 #新的从256开始
-    for token in special_token:
+    for token in special_tokens:
         vocab[new_token_id] = token.encode('utf-8')#把token解码utf8然后存在表里
         new_token_id += 1
     
 
     #初始化合并表格,最开始的时候是空
+    #合并表是一个list，里面存着两对，表示每一对都是
     merge : list[tuple(bytes,bytes)] = []
 
 
+
+
+    #最后就是需要return这两个
     return vocab, merge
 
